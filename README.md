@@ -13,6 +13,8 @@
 ## Usage
 `cf whoami`
 
+[![Sample Output](./docs/screenshot.png)](./docs/screenshot.png)
+
 ## Uninstall
 
 ```bash
