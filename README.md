@@ -3,10 +3,9 @@
 [![Build Status](https://travis-ci.org/jtuchscherer/whoami-plugin.svg?branch=master)](https://travis-ci.org/jtuchscherer/whoami-plugin)
 
 ## Installation
-
+Download the appropriate binary from the [release tab](https://github.com/jtuchscherer/whoami-plugin/releases)
 ```bash
- cf add-plugin-repo CF-Community http://plugins.cloudfoundry.org/
- cf install-plugin "Whoami Plugin" -r CF-Community
+ cf install-plugin PATH_TO_THE_BINARY
 
 ```
 
