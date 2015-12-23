@@ -51,7 +51,7 @@ sed "s/__TODAY__/$TODAY/" |
 cat
 
 if [[ "$1" = "release" ]] ; then
-	git commit -am "Build version $TAG"
+	git commit -am "Build version $TAG" || true
 	git tag -a $TAG -m "Whoami Plugin v$TAG"
 	echo "Tagged release, 'git push --follow-tags' to push it to github, upload the binaries to github"
 	echo "and copy the output above to the cli repo you plan to deploy in"
