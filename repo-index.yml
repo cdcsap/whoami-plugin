@@ -6,16 +6,16 @@
   company:
   authors:
   - name: Johannes Tuchscherer
-    homepage: http://github.com/jtuchscherer
+    homepage: https://github.com/jtuchscherer
     contact: jtuchschererg@gmail.com
-  homepage: http://github.com/jtuchscherer/whoami-plugin
+  homepage: https://github.com/jtuchscherer/whoami-plugin
   binaries:
   - platform: osx
-    url: http://github.com/jtuchscherer/whoami-plugin/releases/download/__TAG__/whoami-plugin-darwin
+    url: https://github.com/jtuchscherer/whoami-plugin/releases/download/__TAG__/whoami-plugin-darwin
     checksum: __osx-sha1__
   - platform: win64
-    url: http://github.com/jtuchscherer/whoami-plugin/releases/download/__TAG__/whoami-plugin.exe
+    url: https://github.com/jtuchscherer/whoami-plugin/releases/download/__TAG__/whoami-plugin.exe
     checksum: __win64-sha1__
   - platform: linux64
-    url: http://github.com/jtuchscherer/whoami-plugin/releases/download/__TAG__/whoami-plugin-linux
+    url: https://github.com/jtuchscherer/whoami-plugin/releases/download/__TAG__/whoami-plugin-linux
     checksum: __linux64-sha1__
