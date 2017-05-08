@@ -40,7 +40,7 @@ In order to create a new release, follow these steps
   ```
   ./scripts/build-all.sh release VERSION_NUMBER #(e.g. 0.7.0)
   ```
-1. Copy the output of the previous command from the first line (should be '- name: Firehose Plugin' to the last checksum line (should be something like checksum: fde5fd52c40ea4c34330426c09c143a76a77a8db)
+1. Copy the output of the previous command from the first line (should be '- name: whoami-plugin' to the last checksum line (should be something like checksum: fde5fd52c40ea4c34330426c09c143a76a77a8db)
 1. Push the tag `git push --follow-tags`
 1. On github, create new release based on new tag [here](https://github.com/jtuchscherer/whoami-plugin/releases/new)
 1. Upload the three binaries from the ./bin folders to the release (Linux, OSX and Win64)
