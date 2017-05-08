@@ -3,9 +3,10 @@ package main_test
 import (
 	"strings"
 
-	"github.com/cloudfoundry/cli/plugin/fakes"
-	"github.com/cloudfoundry/cli/plugin/models"
-	io_helpers "github.com/cloudfoundry/cli/testhelpers/io"
+	"code.cloudfoundry.org/cli/plugin/models"
+	"code.cloudfoundry.org/cli/plugin/pluginfakes"
+	io_helpers "code.cloudfoundry.org/cli/util/testhelpers/io"
+
 	. "github.com/jtuchscherer/whoami-plugin"
 
 	. "github.com/onsi/ginkgo"
@@ -14,14 +15,14 @@ import (
 
 var _ = Describe("WhoamiPlugin", func() {
 	Describe(".Run", func() {
-		var fakeCliConnection *fakes.FakeCliConnection
+		var fakeCliConnection *pluginfakes.FakeCliConnection
 		var whoamiCmd *WhoamiCmd
 		var outputChan chan []string
 
 		BeforeEach(func() {
 			outputChan = make(chan []string)
 
-			fakeCliConnection = &fakes.FakeCliConnection{}
+			fakeCliConnection = &pluginfakes.FakeCliConnection{}
 			fakeCliConnection.UsernameReturns("user@user.com", nil)
 			whoamiCmd = &WhoamiCmd{}
 		})
@@ -110,13 +111,15 @@ var _ = Describe("WhoamiPlugin", func() {
 						fakeCliConnection.UsernameReturns("", nil)
 					})
 
-					It("errors", func(done Done) {
+					It("prints out a helpful error message", func(done Done) {
+						defer GinkgoRecover()
 						defer close(done)
-						Expect(func() {
-							io_helpers.CaptureOutput(func() {
-								whoamiCmd.Run(fakeCliConnection, []string{"whoami"})
-							})
-						}).To(Panic())
+						go invokeCmd(outputChan, whoamiCmd, fakeCliConnection)
+
+						var output []string
+						Eventually(outputChan, 2).Should(Receive(&output))
+						outputString := strings.Join(output, "")
+						Expect(outputString).To(ContainSubstring("you are logged in, but your username is empty"))
 					})
 				})
 
@@ -127,13 +130,15 @@ var _ = Describe("WhoamiPlugin", func() {
 					fakeCliConnection.IsLoggedInReturns(false, nil)
 				})
 
-				It("errors", func(done Done) {
+				It("prints out a helpful error message", func(done Done) {
+					defer GinkgoRecover()
 					defer close(done)
-					Expect(func() {
-						io_helpers.CaptureOutput(func() {
-							whoamiCmd.Run(fakeCliConnection, []string{"whoami"})
-						})
-					}).To(Panic())
+					go invokeCmd(outputChan, whoamiCmd, fakeCliConnection)
+
+					var output []string
+					Eventually(outputChan, 2).Should(Receive(&output))
+					outputString := strings.Join(output, "")
+					Expect(outputString).To(ContainSubstring("Nobody is logged in"))
 				})
 			})
 
@@ -141,7 +146,7 @@ var _ = Describe("WhoamiPlugin", func() {
 	})
 })
 
-func invokeCmd(outputChan chan []string, whoamiCmd *WhoamiCmd, fakeCliConnection *fakes.FakeCliConnection) {
+func invokeCmd(outputChan chan []string, whoamiCmd *WhoamiCmd, fakeCliConnection *pluginfakes.FakeCliConnection) {
 	outputChan <- io_helpers.CaptureOutput(func() {
 		whoamiCmd.Run(fakeCliConnection, []string{"whoami"})
 	})

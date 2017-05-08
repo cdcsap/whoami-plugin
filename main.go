@@ -3,9 +3,11 @@ package main
 import (
 	"os"
 
-	"github.com/cloudfoundry/cli/cf/terminal"
-	"github.com/cloudfoundry/cli/plugin"
-	"github.com/cloudfoundry/cli/plugin/models"
+	"code.cloudfoundry.org/cli/cf/terminal"
+	"code.cloudfoundry.org/cli/cf/trace"
+
+	"code.cloudfoundry.org/cli/plugin"
+	"code.cloudfoundry.org/cli/plugin/models"
 )
 
 // WhoamiCmd struct for the plugin
@@ -59,7 +61,8 @@ func (c *WhoamiCmd) Run(cliConnection plugin.CliConnection, args []string) {
 	var org plugin_models.Organization
 	var space plugin_models.Space
 
-	c.ui = terminal.NewUI(os.Stdin, terminal.NewTeePrinter())
+	traceLogger := trace.NewLogger(os.Stdout, true, os.Getenv("CF_TRACE"), "")
+	c.ui = terminal.NewUI(os.Stdin, os.Stdout, terminal.NewTeePrinter(os.Stdout), traceLogger)
 
 	if hasAPIEndpoint, err = cliConnection.HasAPIEndpoint(); err != nil {
 		c.ui.Failed(err.Error())
