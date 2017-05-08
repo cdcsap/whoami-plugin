@@ -1,7 +1,7 @@
 - name: whoami-plugin
   description: This plugin shows you the name of the currently logged in user
   version: __TAG__
-  created: 2015-12-22
+  created: 2015-12-22T00:00:00Z
   updated: __TODAY__
   company:
   authors:
