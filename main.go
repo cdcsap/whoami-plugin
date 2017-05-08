@@ -21,7 +21,7 @@ func (c *WhoamiCmd) GetMetadata() plugin.PluginMetadata {
 		Name: "Whoami Plugin",
 		Version: plugin.VersionType{
 			Major: 0,
-			Minor: 1,
+			Minor: 2,
 			Build: 0,
 		},
 		MinCliVersion: plugin.VersionType{
