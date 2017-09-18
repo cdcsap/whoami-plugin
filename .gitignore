@@ -25,5 +25,6 @@ _cgo_export.*
 
 .idea/
 *.coverprofile
+*.iml
 
 firehose-plugin
